@@ -8,7 +8,10 @@ public partial class CropManager : Node2D
 {
     public enum CropState {
         JustPlanted,
-        StageTwo
+        StageTwo,
+        StageThree,
+        Ready,
+        Wilted
     }
 
     private ushort CarrotCount { get; set; }
