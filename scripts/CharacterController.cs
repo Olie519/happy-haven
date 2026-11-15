@@ -5,15 +5,25 @@ using System.Diagnostics.Tracing;
 
 namespace HelpingHaven;
 
+public enum ToolSelection {
+    None,
+    WateringCan,
+    CarrotSeed,
+    TomatoSeed
+}
+
 public partial class CharacterController : Node2D
 {
-    
+    [Export]
+    private Label ToolLabel { get; set; }
 
-    [Signal]
-    public delegate void PrimaryActionEventHandler(Vector2 Position, Direction facing);
+    private ToolSelection SelectedTool { get; set; }
 
     private CharacterBody2D Body { get; set; }
     private Direction Facing { get; set; }
+
+    [Signal]
+    public delegate void PrimaryActionEventHandler(Vector2 Position, Direction facing, int tool);
 
     public override void _EnterTree()
     {
@@ -25,8 +35,25 @@ public partial class CharacterController : Node2D
         base._Process(delta);
 
         if(Input.IsActionJustPressed("primary")) {
-            EmitSignal(SignalName.PrimaryAction, Body.GlobalPosition, (int)Facing);
+            EmitSignal(SignalName.PrimaryAction, Body.GlobalPosition, (int)Facing, (int)SelectedTool);
         }
+
+        var tool = (int)SelectedTool;
+
+        if(Input.IsActionJustPressed("last_tool"))
+        {
+            if( (tool - 1) >= 0)
+                tool -= 1;
+        }
+
+        if(Input.IsActionJustPressed("next_tool"))
+        {
+            if( (tool + 1) <= 3)
+                tool += 1;
+        }
+
+        SelectedTool = (ToolSelection)tool;
+        ToolLabel.Text = "Using tool: " + typeof(ToolSelection).GetEnumNames()[tool];
     }
 
     public override void _PhysicsProcess(double delta)
