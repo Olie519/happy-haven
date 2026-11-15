@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://daoxh2vl6g64l"]
+
+[ext_resource type="Texture2D" uid="uid://bxxba8gy8i1d2" path="res://assets/farm/farm_tilemap_packed.png" id="1_agfs1"]
+[ext_resource type="Script" uid="uid://bqpy5ttfwso0l" path="res://scripts/CharacterController.cs" id="1_rkhd4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23dmj"]
+size = Vector2(16, 16)
+
+[node name="Character" type="Node2D" unique_id=523890106]
+script = ExtResource("1_rkhd4")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=619767655]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1441066019]
+shape = SubResource("RectangleShape2D_23dmj")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1525908052]
+texture = ExtResource("1_agfs1")
+region_enabled = true
+region_rect = Rect2(112, 144, 16, 16)

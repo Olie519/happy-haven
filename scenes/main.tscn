@@ -1,0 +1,30 @@
+[gd_scene format=4 uid="uid://y16k5vumq571"]
+
+[ext_resource type="TileSet" uid="uid://d083lui02cj0e" path="res://assets/farm/farm_tilemap.tres" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dnjd8irrjrsa1" path="res://scenes/static_ground.tscn" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://daoxh2vl6g64l" path="res://scenes/character.tscn" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://dvgchnrerxms8" path="res://scripts/CropManager.cs" id="2_tbgi4"]
+
+[node name="Node2D" type="Node2D" unique_id=2131299324]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2110234375]
+zoom = Vector2(3, 3)
+
+[node name="Static" parent="." unique_id=1018547351 instance=ExtResource("2_jyhfs")]
+
+[node name="Interactive" type="Node2D" parent="." unique_id=1785712304 node_paths=PackedStringArray("TillLayer", "CropLayer")]
+script = ExtResource("2_tbgi4")
+TillLayer = NodePath("Till")
+CropLayer = NodePath("Crops")
+
+[node name="Till" type="TileMapLayer" parent="Interactive" unique_id=1407157508]
+tile_map_data = PackedByteArray("AAACAAAAAAAGAAEAAAACAAEAAAAGAAIAAAACAAIAAAAGAAIAAAACAAMAAAAGAAIAAAACAAQAAAAGAAMAAAADAAQAAAAGAAMAAAADAAEAAAAGAAIAAAADAAIAAAAGAAIAAAADAAMAAAAGAAIAAAADAAAAAAAGAAEAAAA=")
+tile_set = ExtResource("1_0wfyh")
+
+[node name="Crops" type="TileMapLayer" parent="Interactive" unique_id=687652438]
+tile_map_data = PackedByteArray("AAACAAAAAAAKAAAAAAACAAEAAAALAAAAAAACAAIAAAAMAAAAAAACAAMAAAAOAAAAAAADAAMAAAAOAAMAAAADAAQAAAANAAMAAAADAAIAAAAMAAMAAAADAAEAAAALAAMAAAADAAAAAAAKAAMAAAACAAQAAAANAAAAAAA=")
+tile_set = ExtResource("1_0wfyh")
+
+[node name="Character" parent="." unique_id=523890106 instance=ExtResource("2_sugp2")]
+
+[connection signal="PrimaryAction" from="Character" to="Interactive" method="PrimaryActionPressed"]
