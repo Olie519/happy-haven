@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bqpy5ttfwso0l" path="res://scripts/CharacterController.cs" id="1_rkhd4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23dmj"]
-size = Vector2(16, 16)
+size = Vector2(16, 8)
 
 [node name="Character" type="Node2D" unique_id=523890106]
 script = ExtResource("1_rkhd4")
@@ -12,6 +12,7 @@ script = ExtResource("1_rkhd4")
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=619767655]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1441066019]
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_23dmj")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1525908052]

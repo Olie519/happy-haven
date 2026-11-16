@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="helping-haven"
-run/main_scene="uid://y16k5vumq571"
+run/main_scene="uid://p3mlr74c76ay"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

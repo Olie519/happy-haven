@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Tracing;
 
 namespace HelpingHaven;
@@ -15,10 +16,12 @@ public enum ToolSelection {
 public partial class CharacterController : Node2D
 {
     [Export]
-    private Label ToolLabel { get; set; }
+    private TileMapLayer UILayer { get; set; }
+
+    [Export]
+    private Camera2D Camera { get; set; }
 
     private ToolSelection SelectedTool { get; set; }
-
     private CharacterBody2D Body { get; set; }
     private Direction Facing { get; set; }
 
@@ -34,6 +37,8 @@ public partial class CharacterController : Node2D
     {
         base._Process(delta);
 
+        Camera.GlobalPosition = Body.GlobalPosition;
+
         if(Input.IsActionJustPressed("primary")) {
             EmitSignal(SignalName.PrimaryAction, Body.GlobalPosition, (int)Facing, (int)SelectedTool);
         }
@@ -44,16 +49,35 @@ public partial class CharacterController : Node2D
         {
             if( (tool - 1) >= 0)
                 tool -= 1;
-        }
 
-        if(Input.IsActionJustPressed("next_tool"))
+            UpdateToolIcon((ToolSelection)tool);
+            
+        } else if(Input.IsActionJustPressed("next_tool"))
         {
             if( (tool + 1) <= 3)
                 tool += 1;
+
+            UpdateToolIcon((ToolSelection)tool);
         }
 
+
         SelectedTool = (ToolSelection)tool;
-        ToolLabel.Text = "Using tool: " + typeof(ToolSelection).GetEnumNames()[tool];
+        
+    }
+
+    private void UpdateToolIcon(ToolSelection tool)
+    {
+        switch (tool) {
+            case ToolSelection.None:
+                UILayer.SetCell(new Vector2I(-7,-4), 0, new Vector2I(9,7));
+                break;
+            case ToolSelection.WateringCan:
+                UILayer.SetCell(new Vector2I(-7,-4), 0, new Vector2I(6,7));
+                break;
+            case ToolSelection.CarrotSeed:
+                UILayer.SetCell(new Vector2I(-7,-4), 0, new Vector2I(15,0));
+                break;
+        }
     }
 
     public override void _PhysicsProcess(double delta)

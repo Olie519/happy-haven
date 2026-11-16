@@ -29,6 +29,9 @@ public partial class CropManager : Node2D
     private ushort TomatoCount { get; set; }
 
     [Export]
+    private TileMapLayer InteractLayer { get; set; }
+
+    [Export]
     private TileMapLayer TillLayer { get; set; }
     [Export]
     private TileMapLayer CropLayer { get; set; }
@@ -44,6 +47,12 @@ public partial class CropManager : Node2D
         var target_tile = GetTargetPosition(current_tile, facing);
 
         GD.Print("Targeting Tile: ", target_tile);
+
+        switch (InteractLayer.GetCellAtlasCoords(target_tile).X) {
+            case 0:
+                Sleep();
+                return;
+        }
 
         switch ((ToolSelection)tool) {
             case ToolSelection.None:
@@ -130,12 +139,18 @@ public partial class CropManager : Node2D
         foreach (var crop in Crops) {
             // Next Crop Size
             var nextState = GetNextCropState(crop.Value);
+            GD.Print("Next Stage is ", nextState);
             CropLayer.SetCell(crop.Key, atlasCoords: nextState);
 
             // Unwater Land
             var till_atlas = TillLayer.GetCellAtlasCoords(crop.Key);
-            till_atlas.X -= 1;
-            TillLayer.SetCell(crop.Key, 0, atlasCoords: till_atlas);
+            if(crop.Value.Watered)
+            {
+                till_atlas.X -= 1;
+                TillLayer.SetCell(crop.Key, 0, atlasCoords: till_atlas);
+                crop.Value.Watered = false;
+            }
+            
         }
     } 
 
@@ -143,7 +158,7 @@ public partial class CropManager : Node2D
     private Vector2I GetNextCropState(CropDetails details)
     {
         if(!details.Watered)
-            return new Vector2I(14, details.Type);
+            return new Vector2I(13, details.Type);
 
         switch (details.State) {
             case CropState.JustPlanted:

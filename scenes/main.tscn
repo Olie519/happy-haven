@@ -5,20 +5,26 @@
 [ext_resource type="PackedScene" uid="uid://daoxh2vl6g64l" path="res://scenes/character.tscn" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://dvgchnrerxms8" path="res://scripts/CropManager.cs" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://bs5ma58kw4v2g" path="res://scripts/MoneyManager.cs" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://bdy7nwhbrueap" path="res://scripts/FadeController.cs" id="5_tefeu"]
 
-[node name="Node2D" type="Node2D" unique_id=2131299324]
+[sub_resource type="Gradient" id="Gradient_o6xl0"]
+colors = PackedColorArray(0, 0, 0, 1, 0.15667456, 0.15667456, 0.15667456, 1)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=2110234375]
-zoom = Vector2(3, 3)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_23dmj"]
+gradient = SubResource("Gradient_o6xl0")
+
+[node name="Main" type="Node2D" unique_id=2131299324]
 
 [node name="Static" parent="." unique_id=1018547351 instance=ExtResource("2_jyhfs")]
 
-[node name="Interactive" type="Node2D" parent="." unique_id=1785712304 node_paths=PackedStringArray("TillLayer", "CropLayer")]
+[node name="Interactive" type="Node2D" parent="." unique_id=1785712304 node_paths=PackedStringArray("InteractLayer", "TillLayer", "CropLayer")]
 script = ExtResource("2_tbgi4")
+InteractLayer = NodePath("Interact")
 TillLayer = NodePath("Till")
 CropLayer = NodePath("Crops")
 
 [node name="Interact" type="TileMapLayer" parent="Interactive" unique_id=929294941]
+tile_map_data = PackedByteArray(0, 0, 253, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 251, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 251, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 251, 255, 254, 255, 0, 0, 0, 0, 0, 0, 0, 0)
 tile_set = ExtResource("1_0wfyh")
 
 [node name="Till" type="TileMapLayer" parent="Interactive" unique_id=1407157508]
@@ -28,22 +34,24 @@ tile_set = ExtResource("1_0wfyh")
 tile_map_data = PackedByteArray(0, 0, 2, 0, 253, 255, 0, 0, 11, 0, 0, 0, 0, 0)
 tile_set = ExtResource("1_0wfyh")
 
-[node name="Character" parent="." unique_id=523890106 node_paths=PackedStringArray("ToolLabel") instance=ExtResource("2_sugp2")]
-ToolLabel = NodePath("../UI/Control/SelectionText")
+[node name="Character" parent="." unique_id=523890106 node_paths=PackedStringArray("UILayer", "Camera") instance=ExtResource("2_sugp2")]
+UILayer = NodePath("Camera2D/UI/ToolUI")
+Camera = NodePath("Camera2D")
 
-[node name="UI" type="Node2D" parent="." unique_id=957309706]
+[node name="Camera2D" type="Camera2D" parent="Character" unique_id=2110234375]
+zoom = Vector2(5, 5)
 
-[node name="Control" type="Control" parent="UI" unique_id=2131997088]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="UI" type="Node2D" parent="Character/Camera2D" unique_id=957309706]
 
-[node name="SelectionText" type="Label" parent="UI/Control" unique_id=2120599351]
-layout_mode = 0
-offset_right = 92.0
-offset_bottom = 23.0
-text = "Placeholder"
+[node name="ToolUI" type="TileMapLayer" parent="Character/Camera2D/UI" unique_id=735324837]
+tile_set = ExtResource("1_0wfyh")
+
+[node name="Fade" type="Sprite2D" parent="Character/Camera2D/UI" unique_id=1677353670]
+visible = false
+position = Vector2(9.250009, 7.4999924)
+scale = Vector2(1.3730469, 223)
+texture = SubResource("GradientTexture1D_23dmj")
+script = ExtResource("5_tefeu")
 
 [node name="EconManager" type="Node2D" parent="." unique_id=11764160]
 script = ExtResource("5_tbgi4")
