@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dtqt4wswcnl6o" path="res://assets/farm/pixil-frame-0.png" id="2_0us38"]
 [ext_resource type="Texture2D" uid="uid://pkorlvpjdnnb" path="res://assets/farm/pixil-frame-0-11.png" id="2_etcwl"]
 [ext_resource type="TileSet" uid="uid://c1ijt81b1sdqn" path="res://assets/farm/new_tile_set.tres" id="3_px6ti"]
-[ext_resource type="Texture2D" uid="uid://5nfhqr7ef5c3" path="res://assets/farm/pixil-frame-0-9.png" id="4_t1xqd"]
+[ext_resource type="Texture2D" uid="uid://ck6fypbsuirkr" path="res://assets/farm/pixil-frame-0-12.png" id="4_t1xqd"]
+[ext_resource type="Texture2D" uid="uid://cm5pbpvjs7nkm" path="res://assets/farm/pixil-frame-0-13.png" id="5_nqcur"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nqcur"]
 texture = ExtResource("2_etcwl")
@@ -30,7 +31,7 @@ separation = Vector2i(1, 1)
 sources/0 = SubResource("TileSetAtlasSource_nqcur")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4dyox"]
-size = Vector2(48, 50)
+size = Vector2(64, 50)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_etcwl"]
 texture = ExtResource("2_0us38")
@@ -318,18 +319,30 @@ size = Vector2(16, 9.375)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l6daj"]
 texture = ExtResource("4_t1xqd")
-separation = Vector2i(1, 1)
 0:0/0 = 0
 1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_etcwl"]
+[sub_resource type="TileSet" id="TileSet_4dyox"]
 sources/0 = SubResource("TileSetAtlasSource_l6daj")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0m0x8"]
+texture = ExtResource("5_nqcur")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_lq3pt"]
+sources/0 = SubResource("TileSetAtlasSource_0m0x8")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u1he0"]
+size = Vector2(28, 20)
 
 [node name="Static" type="Node2D" unique_id=1018547351]
 
@@ -352,7 +365,7 @@ tile_map_data = PackedByteArray("AAD4//7/AAADAAAAAAD4////AAADAAEAAAD5//3/AAADAAE
 tile_set = ExtResource("1_g4b4n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/house" unique_id=44652412]
-position = Vector2(-56, -9)
+position = Vector2(-48, -9)
 shape = SubResource("RectangleShape2D_4dyox")
 
 [node name="burned_house" type="StaticBody2D" parent="Ground" unique_id=755211523]
@@ -380,12 +393,20 @@ tile_map_data = PackedByteArray("AAD4//3/AAAJAAAAAAD4//7/AAAJAAEAAAD6//v/AAAJAAA
 tile_set = ExtResource("1_g4b4n")
 
 [node name="burnedForest" type="StaticBody2D" parent="Ground" unique_id=177562459]
-collision_layer = 65535
-collision_mask = 65535
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Ground/burnedForest" unique_id=1496398356]
 tile_map_data = PackedByteArray("AAALAAQAAAACAAAAAAALAAUAAAACAAEAAAAIAAUAAAACAAAAAAAIAAYAAAACAAEAAAAFAAQAAAACAAAAAAAFAAUAAAACAAEAAAAKAAUAAAADAAAAAAAKAAYAAAADAAEAAAALAAIAAAADAAAAAAALAAMAAAADAAEAAAALAP3/AAADAAAAAAALAP7/AAADAAEAAAAJAPz/AAADAAAAAAAJAP3/AAADAAEAAAALAPv/AAADAAEAAAAHAPv/AAADAAAAAAAHAPz/AAADAAEAAAAKAPv/AAACAAAAAAAKAPz/AAACAAEAAAAGAAYAAAADAAAAAAAGAAMAAAADAAAAAAAGAAQAAAADAAEAAAAFAPr/AAADAAAAAAAFAPv/AAADAAEAAAA=")
-tile_set = SubResource("TileSet_etcwl")
+tile_set = SubResource("TileSet_4dyox")
+
+[node name="shop" type="StaticBody2D" parent="Ground" unique_id=760070004]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Ground/shop" unique_id=1423213784]
+tile_map_data = PackedByteArray("AAADAPz/AAAAAAAAAAADAP3/AAAAAAEAAAADAP7/AAAAAAIAAAAEAPz/AAABAAAAAAAEAP3/AAABAAEAAAAEAP7/AAABAAIAAAA=")
+tile_set = SubResource("TileSet_lq3pt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/shop" unique_id=868104459]
+position = Vector2(64, -26)
+shape = SubResource("RectangleShape2D_u1he0")
 
 [node name="Dressing" type="TileMapLayer" parent="." unique_id=589524007]
 tile_map_data = PackedByteArray("AAABAP//AAAOAAYAAAAAAAEAAAAOAAYAAAD+/wUAAAAOAAYAAAAGAP//AAAMAAYAAAAGAAEAAAAMAAYAAAD+/wMAAAAMAAYAAAADAAIAAAAMAAYAAAAEAAIAAAAOAAYAAAA=")
